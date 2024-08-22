@@ -28,8 +28,8 @@ class Resnet:
         import tensorflow_hub as hub
 
         self.device = "cuda" if tf.test.is_gpu_available() else "cpu"
-        # we can also use `tf.saved_model.load` instead of `hub.load`
-        self.model = hub.load(self.bento_model_ref.path_of("model"))
+        # we can also use `hub.load` instead of `tf.saved_model.load`
+        self.model = tf.saved_model.load(self.bento_model_ref.path_of("model"))
 
     @bentoml.api
     async def classify(self, image: Image) -> np.ndarray:
